@@ -1,0 +1,62 @@
+# immo-ops — critères de recherche (EXEMPLE)
+# Copie ce fichier en config/criteres.yml (le mode `setup` le fait pour toi).
+# config/criteres.yml est ignoré par git : tes montants restent sur ta machine.
+
+projet: achat                 # achat | location
+usage: residence_principale   # residence_principale | investissement_locatif | residence_secondaire
+types: [maison]               # maison, appartement, terrain, parking, autre
+
+# Zones scannées : une commune + un rayon. Ajoute code_postal / code_insee si homonymes.
+zones:
+  - commune: Rouen
+    code_postal: "76000"
+    rayon_km: 15
+
+# Critères DURS (préfiltre, zéro token). Une donnée absente de l'annonce ne rejette pas.
+prix:     { min: 120000, max: 280000 }
+surface:  { min: 90 }          # m² habitables
+pieces:   { min: 4 }
+chambres: { min: 3 }
+terrain:  { min: 300 }         # m², maisons
+dpe_max: E                     # rejette F et G (logements énergivores)
+mots_exclus: [viager, "nue-propriété", "nue propriété", "fonds de commerce", "terrain seul"]
+
+# Critères SOUPLES : bonus dans l'évaluation, jamais éliminatoires.
+mots_bonus: [garage, "plain-pied", cheminée, jardin, "sans vis-à-vis", "double vitrage", "assainissement collectif"]
+
+# Trajets à vérifier (voiture). 'vers' : une commune, ou "lat,lng".
+trajets:
+  - nom: Travail
+    vers: "Rouen 76000"
+    max_minutes: 35
+
+# Recherches Leboncoin enregistrées (optionnel) : colle l'URL de ta recherche, filtres compris.
+recherches_url: []
+
+financement:
+  apport: 30000
+  taux_annuel_pct: 3.4          # à vérifier auprès de ta banque / courtier
+  duree_ans: 25
+  assurance_annuelle_pct: 0.30
+  frais_notaire_ancien_pct: 8.0 # ~7-8 % dans l'ancien selon le département
+  frais_notaire_neuf_pct: 2.5
+  endettement_max_pct: 35       # règle HCSF
+  # revenus_mensuels_nets: 3500 # optionnel : active le calcul du taux d'endettement
+  # autres_credits_mensuels: 0
+
+# Poids des dimensions du score (relatifs, pas besoin que la somme fasse 100).
+ponderations:
+  prix_marche: 25     # prix demandé vs ventes réelles DVF
+  adequation: 25      # critères + bonus
+  etat_travaux: 20    # DPE, âge, travaux annoncés ou devinés
+  localisation: 15    # trajets, commodités
+  risques: 15         # Géorisques, nuisances, signaux d'alerte de l'annonce
+
+scan:
+  pages_max: 2          # pages de 35 annonces par zone (reste modeste : DataDome)
+  delai_min_s: 3
+  delai_max_s: 7
+  proprietaire: tous    # tous | particuliers | pros
+
+notifications:
+  ntfy_url: null        # ex. https://ntfy.sh/mon-sujet-secret ou ton ntfy auto-hébergé

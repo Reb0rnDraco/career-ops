@@ -1,0 +1,13 @@
+# Couche utilisateur : tes données restent locales (le fork est public)
+config/criteres.yml
+modes/_profil.md
+modes/_regles.md
+data/*
+!data/.gitkeep
+reports/*
+!reports/.gitkeep
+cache/
+.venv/
+__pycache__/
+.pytest_cache/
+*.pyc

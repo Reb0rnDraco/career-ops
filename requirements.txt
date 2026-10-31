@@ -1,0 +1,4 @@
+pyyaml>=6.0
+requests>=2.31
+lbc>=1.1.7   # client Leboncoin non officiel (curl_cffi) — https://github.com/etienne-hd/lbc
+pytest>=8.0  # tests

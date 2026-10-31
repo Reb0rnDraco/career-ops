@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python3 immo.py:*)",
+      "Bash(.venv/bin/python immo.py:*)",
+      "Bash(python3 -m pytest:*)",
+      "WebFetch(domain:files.data.gouv.fr)",
+      "WebFetch(domain:geo.api.gouv.fr)",
+      "WebFetch(domain:georisques.gouv.fr)",
+      "WebFetch(domain:www.leboncoin.fr)"
+    ]
+  }
+}
